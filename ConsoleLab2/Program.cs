@@ -160,7 +160,7 @@ namespace ConsoleLab2
                             case 9:
                                 Console.Clear();
                                 Console.WriteLine("Пункт 9 - таблица Актерский состав");
-                                var actorcasts2 = actorCastsRepository.GetAll().Where(actorcast => actorcast.ActorId == 2);
+                                var actorcasts2 = actorCastsRepository.GetAll().Where(actorcast => actorcast.ActorId == 7);
                                 actorCastsRepository.DeleteByTitem(actorcasts2);
                                 actorCastsRepository.Save();
                                 actorcasts2 = actorCastsRepository.GetAll();
