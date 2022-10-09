@@ -90,8 +90,16 @@ namespace ConsoleLab2
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("Пункт 3 - таблица Фильмы(6)");
-                                var films1 = filmsRepository.GetAll().Min(f => f.AgeLimit);
-                                Console.WriteLine("Самое минимальное значение возраста для просмотра фильма - " + films1.ToString());
+                                //var films1 = filmsRepository.GetAll().Min(f => f.AgeLimit).GroupBy();
+                                var films1 = filmsRepository.GetAll();
+                                var genres1 = genresRepository.GetAll();
+                                var groups = films1.GroupBy(f => f.GenreId).Select(g => new { GenreCount = g.Count()});
+                    
+                                foreach (var result in groups)
+                                {
+                                    Console.WriteLine($"GenreName : {result.GenreCount}"); 
+                                }
+
                                 break;
                             case 4:
                                 Console.Clear();
@@ -131,7 +139,7 @@ namespace ConsoleLab2
                             case 7:
                                 Console.Clear();
                                 Console.WriteLine("Пункт 7 - таблица Актерский состав");
-                                actorCastsRepository.Create(new ActorCasts(3 , 5));
+                                actorCastsRepository.Create(new ActorCasts(7 , 8));
                                 actorCastsRepository.Save();
                                 var actorcasts = actorCastsRepository.GetAll().Reverse().Take(15);
                                 foreach (var actorcast in actorcasts)
