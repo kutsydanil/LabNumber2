@@ -90,14 +90,23 @@ namespace ConsoleLab2
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("Пункт 3 - таблица Фильмы(6)");
-                                //var films1 = filmsRepository.GetAll().Min(f => f.AgeLimit).GroupBy();
                                 var films1 = filmsRepository.GetAll();
                                 var genres1 = genresRepository.GetAll();
-                                var groups = films1.GroupBy(f => f.GenreId).Select(g => new { GenreCount = g.Count()});
-                    
-                                foreach (var result in groups)
+                                /*var groups = films1.GroupBy(f => f.GenreId).Select(g => new { GenreCount = g.Count()})*/;
+                                var results = from film in films1
+                                              join genre in genres1 on
+                                              film.GenreId equals genre.Id
+                                              group genre by new {genre.Name} into grp
+                                              select new { Name = grp.Key.Name, Count = grp.Count() };
+
+                                /*foreach (var result in groups)
                                 {
-                                    Console.WriteLine($"GenreName : {result.GenreCount}"); 
+                                    Console.WriteLine($"GenreName : {result.GenreCount}");
+                                }*/
+
+                                foreach (var result in results)
+                                {
+                                    Console.WriteLine($"{result.Name} : {result.Count}"); 
                                 }
 
                                 break;
